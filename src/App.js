@@ -99,7 +99,10 @@ function App() {
   };
 
   const addNote = () => {
+    // const Data = [...noteByCurrentDay].push(textInput);
+    // console.log(Data)
     if (currentDay !== 0 && textInput) {
+      
       currentYear.monthInYear[currentMonth].days
         .find((d) => d.day == currentDay)
         .note.push(textInput);
@@ -114,8 +117,12 @@ function App() {
   const deleteNote = (index) => {
 
     const Data = [...noteByCurrentDay]
-    Data.splice(index,1)
-    setNoteByCurrentDay(Data);
+    currentYear.monthInYear[currentMonth].days
+        .find((d) => d.day == currentDay)
+        .note.splice(index,1)
+    setNoteByCurrentDay(currentYear.monthInYear[currentMonth].days
+      .find((d) => d.day == currentDay)
+      .note);
   };
 
   return (
