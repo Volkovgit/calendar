@@ -99,10 +99,8 @@ function App() {
   };
 
   const addNote = () => {
-    // const Data = [...noteByCurrentDay].push(textInput);
-    // console.log(Data)
+    debugger;
     if (currentDay !== 0 && textInput) {
-      
       currentYear.monthInYear[currentMonth].days
         .find((d) => d.day == currentDay)
         .note.push(textInput);
@@ -110,19 +108,18 @@ function App() {
         ...currentYear.monthInYear[currentMonth].days.find(
           (d) => d.day == currentDay
         ).note,
-      ]);
+      ]); 
     }
   };
 
   const deleteNote = (index) => {
-
-    const Data = [...noteByCurrentDay]
     currentYear.monthInYear[currentMonth].days
         .find((d) => d.day == currentDay)
-        .note.splice(index,1)
-    setNoteByCurrentDay(currentYear.monthInYear[currentMonth].days
-      .find((d) => d.day == currentDay)
-      .note);
+        .note.splice(index,1);
+    setNoteByCurrentDay([...currentYear.monthInYear[currentMonth].days.find(
+      (d) => d.day == currentDay
+    ).note]);
+
   };
 
   return (
@@ -192,7 +189,9 @@ function App() {
                     >
                       Add Note
                     </Button>
-                    <Box>Day:{currentDay!=0? currentDay:"Выберите день"}</Box>
+                    <Box>
+                      Day:{currentDay != 0 ? currentDay : "Выберите день"}
+                    </Box>
 
                     {noteByCurrentDay.map((n, i) => {
                       return (
@@ -201,7 +200,7 @@ function App() {
                           <IconButton
                             aria-label="delete"
                             className={classes.margin}
-                            onClick={()=>deleteNote(i)}
+                            onClick={() => deleteNote(i)}
                           >
                             <DeleteIcon fontSize="small" />
                           </IconButton>
