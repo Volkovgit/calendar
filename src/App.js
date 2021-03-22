@@ -22,6 +22,12 @@ const useStyles = makeStyles({
     margin: "1px",
     borderRadius: "0",
   },
+  activeBtn:{
+    margin: "1px",
+    borderRadius: "0",
+    border:"2px solid black"
+  },
+
   dataGrid: {
     // width: "270px",
     // border: "1px solid black",
@@ -44,6 +50,7 @@ function App() {
   const [noteByCurrentDay, setNoteByCurrentDay] = useState([]);
   const [currentDay, setCurrentDay] = useState(0);
   const [textInput, setTextInput] = useState("");
+  const [activeBtn,setActiveBtn] = useState(0);
 
   const nextMonth = () => {
     let curM = currentMonth + 1;
@@ -91,11 +98,13 @@ function App() {
   };
 
   const getNoteByDay = (dayNumber) => {
+    setActiveBtn(dayNumber)
     setCurrentDay(dayNumber);
     let noteArr = currentYear.monthInYear[currentMonth].days.find(
       (d) => d.day == dayNumber
     ).note;
     setNoteByCurrentDay([...noteArr]);
+   
   };
 
   const addNote = () => {
@@ -168,7 +177,7 @@ function App() {
                       return (
                         <Box xs={8} key={dIndex} className={classes.dataItem}>
                           <Button
-                            className={classes.dataBtn}
+                            className={activeBtn== d.day ? classes.activeBtn: ''}
                             variant="contained"
                             onClick={() => getNoteByDay(d.day)}
                           >
